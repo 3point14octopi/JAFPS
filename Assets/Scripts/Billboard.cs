@@ -8,39 +8,41 @@ using UnityEngine;
 public class Billboard : MonoBehaviour
 {
     public Transform plane;
-    public SpriteRenderer spr;
+    
     public Camera activeCamera;
     public bool bbEnabled = true;
     public bool correctionOn = false;
 
+    //public SpriteRenderer spr;
+    //public Sprite[] upper;
+    //public Sprite[] mid;
+    //public Sprite[] lower;
 
-    public Sprite[] upper;
-    public Sprite[] mid;
-    public Sprite[] lower;
-
-    private Sprite[,] grid;
+    //private Sprite[,] grid;
 
     private Vector3 lookposition;
     private bool isBelow;
     private float cHeight;
 
+    public Animator bb_animator;
+    public int NumberOfDirections = 4;
 
 
     private void AddToGrid(Sprite[] sList, int row)
     {
-        for(int i = 0; i < sList.Length; i++)
-        {
-            grid[row, i] = sList[i];
-        }
+        //for(int i = 0; i < sList.Length; i++)
+        //{
+        //    grid[row, i] = sList[i];
+        //}
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        grid = new Sprite[3, upper.Length];
-        AddToGrid(upper, 0);
-        AddToGrid(mid, 1);
-        AddToGrid(lower, 2);
+        //grid = new Sprite[3, upper.Length];
+        //AddToGrid(upper, 0);
+        //AddToGrid(mid, 1);
+        //AddToGrid(lower, 2);
     }
 
 
@@ -72,10 +74,10 @@ public class Billboard : MonoBehaviour
 
         d = (Vector3.Angle(this.transform.right, plane.forward) <= 90) ? 360 - d : d;
 
-        float div = (float)(360 / grid.GetLength(1));
+        float div = (float)(360 / NumberOfDirections);
 
         int column = (int)(d / div);
-        column = (column >=grid.GetLength(1) -1)?7:column;
+        column = (column >=NumberOfDirections)?NumberOfDirections-1:column;
 
         return column;
     }
@@ -102,22 +104,24 @@ public class Billboard : MonoBehaviour
             Speen();
             int column = CalculateAngleSprite();
 
-            int row = 1;
+            int row = 10;
             if (HeightAngle() > 50)
             {
-                row = (isBelow) ? 2 : 0;
+                row = (isBelow) ? 20 : 0;
                 RotatetheBanana(90);
             }
 
+
             try
             {
-                spr.sprite = grid[row, column];
+                bb_animator.SetInteger("Perspective", row + column);
+                //spr.sprite = grid[row, column];
             }
             catch (IndexOutOfRangeException)
             {
                 Debug.Log("you have GOT to be kidding me");
-                column = (column < 0) ? 0 : grid.GetLength(1) - 1;
-                spr.sprite = grid[row, column];
+                column = (column < 0) ? 0 : NumberOfDirections - 1;
+                bb_animator.SetInteger("Perspective", row + column);
                 Debug.Log("Set to " + column.ToString());
             }
 

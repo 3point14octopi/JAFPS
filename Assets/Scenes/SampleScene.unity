@@ -247,6 +247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 187309388}
   - component: {fileID: 187309387}
+  - component: {fileID: 187309389}
   m_Layer: 0
   m_Name: Billboard
   m_TagString: Untagged
@@ -321,6 +322,27 @@ Transform:
   m_Father: {fileID: 2069180479}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &187309389
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187309386}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d1400db4759f2946aea5d4e965a879c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &379471584
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,14 +610,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.20870544, y: 0.6787281, z: 0.3193307, w: 0.6275334}
-  m_LocalPosition: {x: -1.7, y: 58.6, z: 62.6}
+  m_LocalRotation: {x: 0.010693572, y: 0.030206457, z: 0.011573506, w: 0.99941945}
+  m_LocalPosition: {x: 14.21, y: 73.87, z: 41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -44.06, y: 90.675, z: 9.409}
+  m_LocalEulerAnglesHint: {x: 1.185, y: 3.476, z: 1.363}
 --- !u!1 &1078823112
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,25 +940,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 187309388}
-  spr: {fileID: 187309387}
   activeCamera: {fileID: 963194227}
   bbEnabled: 1
   correctionOn: 0
-  upper:
-  - {fileID: 21300000, guid: 87d683e3a8e0a8446bff0dac53db8d45, type: 3}
-  - {fileID: 21300000, guid: e590067c389aa89419b752e5beef9203, type: 3}
-  - {fileID: 21300000, guid: 064d9f43fcb723a4ea52b7ca865796fe, type: 3}
-  - {fileID: 21300000, guid: f7b70a28eb933d34988c1fcccf508887, type: 3}
-  mid:
-  - {fileID: 21300000, guid: 758986326ac2a1b42b7dbde9e6cf0242, type: 3}
-  - {fileID: 21300000, guid: d30e56e011e64dc418c383243254826c, type: 3}
-  - {fileID: 21300000, guid: dbfc9bb1fb4148a469ddeb37192fc234, type: 3}
-  - {fileID: 21300000, guid: e4d14bdbe97510e4694d4609c86d24fb, type: 3}
-  lower:
-  - {fileID: 21300000, guid: 22d8bd77c0c17ca41b32dc4f34749aca, type: 3}
-  - {fileID: 21300000, guid: 133ed26805066614981372c77bc991ca, type: 3}
-  - {fileID: 21300000, guid: 12c79911f2dbabb42a6fba6dde8ad2c8, type: 3}
-  - {fileID: 21300000, guid: cfbfb463dec8dd241981cf1e626a2815, type: 3}
+  bb_animator: {fileID: 187309389}
+  NumberOfDirections: 8
 --- !u!4 &2069180479
 Transform:
   m_ObjectHideFlags: 0
@@ -1001,37 +1009,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 1158929468}
-  spr: {fileID: 1158929467}
   activeCamera: {fileID: 963194227}
   bbEnabled: 1
   correctionOn: 0
-  upper:
-  - {fileID: 21300000, guid: 465d906c3ca6e7e4d864d7edfe35fe1e, type: 3}
-  - {fileID: 21300000, guid: 905dbc160f7a5d04d96b2f01d59f432c, type: 3}
-  - {fileID: 21300000, guid: 3ba91474e42024f48b7be73be4c43c44, type: 3}
-  - {fileID: 21300000, guid: 1004bdf346cbd4e4fa608592a2da379f, type: 3}
-  - {fileID: 21300000, guid: 6e9bf4163679e6f4b8140045a09aa938, type: 3}
-  - {fileID: 21300000, guid: 49b2e83da4059ff439a293e2415fdc43, type: 3}
-  - {fileID: 21300000, guid: f9e1f6b20d83a4742b6e57271f467ee1, type: 3}
-  - {fileID: 21300000, guid: b39ffe97100175c448f3204c64d87415, type: 3}
-  mid:
-  - {fileID: 21300000, guid: f02097e2e7e2e52419215c30af9809b2, type: 3}
-  - {fileID: 21300000, guid: 520f8da335a739f40802ce68fde0bb93, type: 3}
-  - {fileID: 21300000, guid: 3af89e033afdaca4794145f86f22e758, type: 3}
-  - {fileID: 21300000, guid: ba2e38d8dbfa6a149a50fca1b6e9aaa6, type: 3}
-  - {fileID: 21300000, guid: 5a00f9adeeb990c48b1f4dd9f0a666b8, type: 3}
-  - {fileID: 21300000, guid: f160c1209f993094fb57628215aea8e5, type: 3}
-  - {fileID: 21300000, guid: 36f114a8a6350d340bf28de6ddb80a16, type: 3}
-  - {fileID: 21300000, guid: cf375ec35931c9049866bd4ac68fa99a, type: 3}
-  lower:
-  - {fileID: 21300000, guid: c44009730bbc37741b5a4d07c52dc4b9, type: 3}
-  - {fileID: 21300000, guid: 8369efd6f08c73043aadefa308456299, type: 3}
-  - {fileID: 21300000, guid: 5f702af7ed303df43ab59b6987a39d9b, type: 3}
-  - {fileID: 21300000, guid: ad417841d48e3c244b7375d395a08c9e, type: 3}
-  - {fileID: 21300000, guid: f51f42d7a40242f4997b8d984df52f32, type: 3}
-  - {fileID: 21300000, guid: 906f98adf7d775f4eb95d8ca0ad07675, type: 3}
-  - {fileID: 21300000, guid: 090258e5253ba034785c79a892355c3d, type: 3}
-  - {fileID: 21300000, guid: ee81ca157b7dad847a909d0270f404a0, type: 3}
+  bb_animator: {fileID: 0}
+  NumberOfDirections: 4
 --- !u!114 &2079975859
 MonoBehaviour:
   m_ObjectHideFlags: 0
