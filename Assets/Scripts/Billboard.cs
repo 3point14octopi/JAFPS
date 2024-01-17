@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using UnityEditor;
 using UnityEngine;
+using Character_Data;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class Billboard : MonoBehaviour
 {
@@ -11,21 +10,29 @@ public class Billboard : MonoBehaviour
     
     public Camera activeCamera;
     public bool bbEnabled = true;
-    public bool correctionOn = false;
 
-    //public SpriteRenderer spr;
+    public SpriteRenderer spr;
+    public RemoteCharacter rControl;
     //public Sprite[] upper;
     //public Sprite[] mid;
     //public Sprite[] lower;
 
     //private Sprite[,] grid;
 
+    private string[] directions = new string[]
+    {
+        "South", "SouthWest", "West", "NorthWest", "North", "NorthEast", "East", "SouthEast"
+    };
+
+
     private Vector3 lookposition;
     private bool isBelow;
     private float cHeight;
+    private int prevPerspective;
 
     public Animator bb_animator;
-    public int NumberOfDirections = 4;
+    public int NumberOfDirections = 8;
+    public bool isBillboarding = true;
 
 
     private void AddToGrid(Sprite[] sList, int row)
@@ -43,6 +50,23 @@ public class Billboard : MonoBehaviour
         //AddToGrid(upper, 0);
         //AddToGrid(mid, 1);
         //AddToGrid(lower, 2);
+        prevPerspective = -1;
+        PrintSomeStuff();
+    }
+
+
+    string ConvertToDirection(int value)
+    {
+        return (NumberOfDirections == 8) ? directions[value] : directions[value * 2];
+    }
+    
+    //filty if true
+    string ConvertToLevel(int value)
+    {
+        if (value == 2) return "_Bottom";
+        if (value == 1) return "_Middle";
+
+        return "_Top";
     }
 
 
@@ -96,10 +120,26 @@ public class Billboard : MonoBehaviour
         //plane.LookAt(activeCamera.transform.position);
     }
 
+
+    void ToggleByView()
+    {
+        bool inSight = GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(activeCamera), spr.bounds);
+
+        if (inSight != isBillboarding)
+        {
+            prevPerspective = -1;
+            rControl.PlayPauseAnimator((inSight) ? 1 : 0);
+
+            isBillboarding = inSight;
+        }
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        if (bbEnabled)
+        ToggleByView();
+        if (bbEnabled && isBillboarding)
         {
             Speen();
             int column = CalculateAngleSprite();
@@ -112,23 +152,49 @@ public class Billboard : MonoBehaviour
             }
 
 
-            try
+            if(prevPerspective != row + column)
             {
-                bb_animator.SetInteger("Perspective", row + column);
-                //spr.sprite = grid[row, column];
+                try
+                {
+                    string name = ConvertToDirection(column) + ConvertToLevel(row%10);
+                    rControl.AnimationUpdate(name, rControl.actionState);
+                    //bb_animator.SetInteger("Perspective", row + column);
+                    //spr.sprite = grid[row, column];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Debug.Log("you have GOT to be kidding me");
+                    column = (column < 0) ? 0 : NumberOfDirections - 1;
+                    name = ConvertToDirection(column) + ConvertToLevel(row%10);
+                    rControl.AnimationUpdate(name, rControl.actionState);
+                    //bb_animator.SetInteger("Perspective", row + column);
+                    Debug.Log("Set to " + column.ToString());
+                }
+
+                prevPerspective = row + column;
             }
-            catch (IndexOutOfRangeException)
-            {
-                Debug.Log("you have GOT to be kidding me");
-                column = (column < 0) ? 0 : NumberOfDirections - 1;
-                bb_animator.SetInteger("Perspective", row + column);
-                Debug.Log("Set to " + column.ToString());
-            }
+            
 
         }
+
         
-       
     }
 
 
+    void PrintSomeStuff()
+    {
+        Debug.Log(bb_animator.GetLayerIndex("Idle"));
+        Debug.Log(bb_animator.GetLayerIndex("Jump"));
+        Debug.Log(bb_animator.GetLayerIndex("Primary"));
+        Debug.Log(bb_animator.GetLayerIndex("Secondary"));
+        Debug.Log(bb_animator.GetLayerIndex("Reload"));
+        Debug.Log(bb_animator.GetLayerIndex("Run"));
+        Debug.Log(bb_animator.GetLayerIndex("Long Jump"));
+        Debug.Log(bb_animator.GetLayerIndex("Running Primary"));
+        Debug.Log(bb_animator.GetLayerIndex("Running Reload"));
+        Debug.Log(bb_animator.GetLayerIndex("Fall"));
+        Debug.Log(bb_animator.GetLayerIndex("Falling Primary"));
+        Debug.Log(bb_animator.GetLayerIndex("Falling Secondary"));
+        Debug.Log(bb_animator.GetLayerIndex("Falling Reload"));
+    }
 }

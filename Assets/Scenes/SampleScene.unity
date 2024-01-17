@@ -332,7 +332,7 @@ Animator:
   m_GameObject: {fileID: 187309386}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d1400db4759f2946aea5d4e965a879c, type: 2}
+  m_Controller: {fileID: 9100000, guid: d5a048412378ab747840a2d62304a625, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -781,7 +781,7 @@ SpriteRenderer:
   m_Size: {x: 1.52, y: 1.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1158929468
@@ -905,7 +905,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2069180479}
+  - component: {fileID: 2069180481}
   - component: {fileID: 2069180478}
+  - component: {fileID: 2069180480}
   - component: {fileID: 2069180477}
   m_Layer: 0
   m_Name: bb_pig
@@ -942,9 +944,11 @@ MonoBehaviour:
   plane: {fileID: 187309388}
   activeCamera: {fileID: 963194227}
   bbEnabled: 1
-  correctionOn: 0
+  spr: {fileID: 187309387}
+  rControl: {fileID: 2069180480}
   bb_animator: {fileID: 187309389}
   NumberOfDirections: 8
+  isBillboarding: 1
 --- !u!4 &2069180479
 Transform:
   m_ObjectHideFlags: 0
@@ -961,6 +965,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2069180480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069180476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d730e184b76c04080ebd8d15681822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterAnimator: {fileID: 187309389}
+  actionState: 1
+  characterTransform: {fileID: 2069180479}
+  characterRigidbody: {fileID: 2069180481}
+--- !u!54 &2069180481
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069180476}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2079975856
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,9 +1047,11 @@ MonoBehaviour:
   plane: {fileID: 1158929468}
   activeCamera: {fileID: 963194227}
   bbEnabled: 1
-  correctionOn: 0
+  spr: {fileID: 0}
+  rControl: {fileID: 0}
   bb_animator: {fileID: 0}
   NumberOfDirections: 4
+  isBillboarding: 1
 --- !u!114 &2079975859
 MonoBehaviour:
   m_ObjectHideFlags: 0
