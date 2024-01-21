@@ -5,6 +5,36 @@ using Character_Data;
 
 
 
+namespace Character_Data
+{
+    public static class DirectionalData
+    {
+        static string[] directions = new string[]
+        {
+            "South", "SouthWest", "West", "NorthWest", "North", "NorthEast", "East", "SouthEast"
+        };
+
+        public static string ConvertToDirection(int value, int NumberOfDirections = 8)
+        {
+            return (NumberOfDirections == 8) ? directions[value] : directions[value * 2];
+        }
+
+        public static string ConvertToLevel(int value)
+        {
+            if (value == 2) return "_Bottom";
+            if (value == 1) return "_Middle";
+
+            return "_Top";
+        }
+    }
+}
+
+
+
+
+
+
+
 public class RemoteCharacter : MonoBehaviour
 {
     public Animator characterAnimator;
