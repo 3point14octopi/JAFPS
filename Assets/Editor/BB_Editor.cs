@@ -23,7 +23,7 @@ namespace JAFBillboard
             }
             else
             {
-                DrawPropertiesExcluding(serializedObject, "upper", "mid", "lower");
+                DrawPropertiesExcluding(serializedObject, "upper", "mid", "lower", "NumberOfDirections");
             }
 
             serializedObject.ApplyModifiedProperties();

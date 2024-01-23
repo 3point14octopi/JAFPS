@@ -20,6 +20,7 @@ namespace JAFBillboard
             bb = c;
 
             bb.InitGrid();
+            bb.NumberOfDirections = 8;
         }
 
         public void Render(int row, int column)
@@ -93,6 +94,7 @@ namespace JAFBillboard
         public Sprite[] upper;
         public Sprite[] mid;
         public Sprite[] lower;
+        public int NumberOfDirections = 8;
         [HideInInspector] public Sprite[,] grid;
 
         //math
@@ -107,8 +109,7 @@ namespace JAFBillboard
 
 
         //controls
-        public int NumberOfDirections = 8;
-        public bool bbEnabled = true;//determines if billboardin can happen at all
+        public bool bbEnabled = true;//determines if billboarding can happen at all
         public bool isBillboarding = true;//shows if billboarding is currently occurring (is changed dynamically, so is separate)
 
         private void AddToGrid(Sprite[] sList, int row)
@@ -224,7 +225,6 @@ namespace JAFBillboard
                 int row = 10;
                 if (HeightAngle() > 50)
                 {
-                    Debug.Log(HeightAngle().ToString());
                     row = (isBelow) ? 20 : 0;
                     RotateBillboard(90);
                 }
