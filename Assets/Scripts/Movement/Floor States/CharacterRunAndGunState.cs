@@ -2,35 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterRunState : CharacterBaseState
+public class CharacterRunAndGunState : CharacterBaseState
 {
-
-
     public override void EnterState(CharacterStateManager character){
         //debug
-        Debug.Log("RUN TIME");
-        //gives us ground friction
-        character.rb.drag = character.groundDrag;
-
-   }
+        Debug.Log("RUN AND GUN TIME");
+    }
 
     public override void UpdateState(CharacterStateManager character){
-        //Jump Transition 
-        if(Input.GetKey(character.jumpKey)){
-            character.SwitchState(character.LongJumpState);
-        }
-
-        //Idle Transition
-        else if(character.horizontalInput == 0f && character.verticalInput == 0f){
+        
+        //Primary Transition
+        if(character.horizontalInput == 0f && character.verticalInput == 0f){
             character.SwitchState(character.IdleState);
         }
-
-        //Run and Gun Transtion
-        else if(Input.GetKeyDown(character.primaryKey)){
-            character.SwitchState(character.RunAndGunState);
+        
+        //Run Transition
+        //Debug.Log("PEW(On the Move)");
+        if(Input.GetKeyUp (character.primaryKey)){
+            character.SwitchState(character.RunState);
         }
 
-     
         //WASD movement || finds our vector then gives momentum in that direction
         character.horizontalInput = Input.GetAxisRaw("Horizontal");
         character.verticalInput = Input.GetAxisRaw("Vertical");
@@ -47,8 +38,6 @@ public class CharacterRunState : CharacterBaseState
             character.rb.velocity = new Vector3(character.speedCap.x, character.rb.velocity.y, character.speedCap.z);
         }
     }
-
-
     public override void OnCollisionEnter(CharacterStateManager character, Collision Collision){
 
     }

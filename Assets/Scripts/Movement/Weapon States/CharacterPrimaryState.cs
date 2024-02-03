@@ -2,34 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterIdleState : CharacterBaseState
+public class CharacterPrimaryState : CharacterBaseState
 {
     public override void EnterState(CharacterStateManager character){
         //debug
-        Debug.Log("IDLE TIME");
+        Debug.Log("PRIMARY TIME");
     }
 
     public override void UpdateState(CharacterStateManager character){
-        //Transition for running 
+        
+        //Idle Transition
+        //Debug.Log("PEW");
+        if(Input.GetKeyUp (character.primaryKey)){
+            character.SwitchState(character.IdleState);
+        }
+
+        //Run and Gun Transition
         character.horizontalInput = Input.GetAxisRaw("Horizontal");
         character.verticalInput = Input.GetAxisRaw("Vertical");
         if(character.horizontalInput > 0f || character.verticalInput > 0f){
-            character.SwitchState(character.RunState);
-        }
-
-        //Jump Transtion
-        else if(Input.GetKey(character.jumpKey)){
-            character.SwitchState(character.JumpState);
-        }
-
-        //Primary Transtion
-        else if(Input.GetKeyDown(character.primaryKey)){
-            character.SwitchState(character.PrimaryState);
-        }
-
-        //Secondary Transtion
-        else if(Input.GetKeyDown(character.secondaryKey)){
-            character.SwitchState(character.SecondaryState);
+            character.SwitchState(character.RunAndGunState);
         }
     }
     public override void OnCollisionEnter(CharacterStateManager character, Collision Collision){

@@ -12,12 +12,16 @@ public class CharacterStateManager : MonoBehaviour
     public CharacterRunState RunState = new CharacterRunState();   
     public CharacterJumpState JumpState = new CharacterJumpState();
     public CharacterLongJumpState LongJumpState = new CharacterLongJumpState();
-
+    public CharacterPrimaryState PrimaryState = new CharacterPrimaryState();
+    public CharacterSecondaryState SecondaryState = new CharacterSecondaryState();
+    public CharacterRunAndGunState RunAndGunState = new CharacterRunAndGunState();
 
     [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space; //for jump
     public float horizontalInput; //for W && S
     public float verticalInput; //for A && D
+    public KeyCode jumpKey = KeyCode.Space; //for jump
+    public KeyCode primaryKey = KeyCode.Mouse0;
+    public KeyCode secondaryKey = KeyCode.Mouse1;
 
 
    
@@ -28,8 +32,6 @@ public class CharacterStateManager : MonoBehaviour
     public Vector3 moveDirection; //movement angle
     public float movementSpeed;//run speed
     public Vector3 speedCap; //used with movement speed
-
-
 
     [Header("Jumping")]
     public float airDrag;//drag strength when in air
