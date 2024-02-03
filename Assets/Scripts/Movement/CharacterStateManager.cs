@@ -11,6 +11,7 @@ public class CharacterStateManager : MonoBehaviour
     public CharacterIdleState IdleState = new CharacterIdleState();
     public CharacterRunState RunState = new CharacterRunState();   
     public CharacterJumpState JumpState = new CharacterJumpState();
+    public CharacterLongJumpState LongJumpState = new CharacterLongJumpState();
 
 
     [Header("Keybinds")]
@@ -23,7 +24,7 @@ public class CharacterStateManager : MonoBehaviour
     [Header("Running")]
     public Transform orientation; //spins with camera to know what is forward
     public Rigidbody rb; //player rigidbody
-    public float groundDrag;//drag strength when runnign
+    public float groundDrag;//drag strength when running
     public Vector3 moveDirection; //movement angle
     public float movementSpeed;//run speed
     public Vector3 speedCap; //used with movement speed
@@ -31,10 +32,15 @@ public class CharacterStateManager : MonoBehaviour
 
 
     [Header("Jumping")]
+    public float airDrag;//drag strength when in air
     public float jumpForce;// jump power/height
     public float airMultiplier;//how much less speed you have in the air
     public float jumpCooldown;//minimum time between jump in seconds
     public bool readyToJump;//reset after jumpCooldown
+
+    [Header("Long Jumping")]
+    public float longJumpForce;// jump power/height for long jump
+    public float longAirMultiplier;//how much less speed you have in the air on long jump
 
     [Header("Raycast")]
     public float playerHeight;//used to raycast the correct distance downward

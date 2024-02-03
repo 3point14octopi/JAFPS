@@ -8,7 +8,7 @@ public class CharacterJumpState : CharacterBaseState
         //debug
         Debug.Log("Jump TIME");
         //takes off teh ground friction
-        character.rb.drag = 0;
+        character.rb.drag = character.airDrag;
         //resets our jump
         character.readyToJump = false;
         //starts our jump timer

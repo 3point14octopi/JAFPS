@@ -17,7 +17,7 @@ public class CharacterRunState : CharacterBaseState
     public override void UpdateState(CharacterStateManager character){
         //Jump Transition 
         if(Input.GetKey(character.jumpKey)){
-            character.SwitchState(character.JumpState);
+            character.SwitchState(character.LongJumpState);
         }
         //Idle Transition
         if(character.horizontalInput == 0f && character.verticalInput == 0f){
