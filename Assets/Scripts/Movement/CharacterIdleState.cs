@@ -6,14 +6,23 @@ public class CharacterIdleState : CharacterBaseState
 {
     public override void EnterState(CharacterStateManager character){
         //debug
-        Debug.Log("GAME TIME");
+        Debug.Log("IDLE TIME");
     }
 
     public override void UpdateState(CharacterStateManager character){
-        //debug
-        character.SwitchState(character.RunState);
+        //Transition for running 
+        //if there is any hori or vert input it we enter run
+        character.horizontalInput = Input.GetAxisRaw("Horizontal");
+        character.verticalInput = Input.GetAxisRaw("Vertical");
+        if(character.horizontalInput > 0f || character.verticalInput > 0f){
+            character.SwitchState(character.RunState);
+        }
+        //Transition for jumping
+        //triggered by spacebar
+        else if(Input.GetKey(character.jumpKey)){
+            character.SwitchState(character.JumpState);
+        }
     }
-
     public override void OnCollisionEnter(CharacterStateManager character, Collision Collision){
 
     }

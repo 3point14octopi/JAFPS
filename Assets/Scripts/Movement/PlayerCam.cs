@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerCam : MonoBehaviour
 {
+    [Header("Camera")]
     public float sensX;
     float rotationX;
     public float sensY;

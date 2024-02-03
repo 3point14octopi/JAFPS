@@ -13,8 +13,41 @@ public class CharacterStateManager : MonoBehaviour
     public CharacterJumpState JumpState = new CharacterJumpState();
 
 
+    [Header("Keybinds")]
+    public KeyCode jumpKey = KeyCode.Space; //for jump
+    public float horizontalInput; //for W && S
+    public float verticalInput; //for A && D
+
+
+   
+    [Header("Running")]
+    public Transform orientation; //spins with camera to know what is forward
+    public Rigidbody rb; //player rigidbody
+    public float groundDrag;//drag strength when runnign
+    public Vector3 moveDirection; //movement angle
+    public float movementSpeed;//run speed
+    public Vector3 speedCap; //used with movement speed
+
+
+
+    [Header("Jumping")]
+    public float jumpForce;// jump power/height
+    public float airMultiplier;//how much less speed you have in the air
+    public float jumpCooldown;//minimum time between jump in seconds
+    public bool readyToJump;//reset after jumpCooldown
+
+    [Header("Raycast")]
+    public float playerHeight;//used to raycast the correct distance downward
+    public bool grounded;//stores if we are on the floor 
+    public LayerMask whatIsGround;//layer for objects that trigger the grounded bool
+
+
     void Start()
     {
+        //sets our rigidbody
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+
         //Sets our current state to the most boring state we own
         currentState = IdleState;
 
@@ -22,19 +55,17 @@ public class CharacterStateManager : MonoBehaviour
         currentState.EnterState(this);
     }
 
+    //Update and the collisions basically offload their work to the current state
     void Update()
     {
-        //Uses the update fuction of our current state
         currentState.UpdateState(this);
     }
 
     void OnCollisionEnter(Collision Collision){
-        //Passes on our context and collision data to the current states collsion function
         currentState.OnCollisionEnter(this, Collision);
     }
 
         void OnCollisionExit(Collision Collision){
-        //Passes on our context and collision data to the current states collsion function
         currentState.OnCollisionExit(this, Collision);
     }
 
@@ -44,4 +75,5 @@ public class CharacterStateManager : MonoBehaviour
         currentState = state;
         state.EnterState(this);
     }
+
 }
