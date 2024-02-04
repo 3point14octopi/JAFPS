@@ -31,6 +31,11 @@ public class CharacterIdleState : CharacterBaseState
         else if(Input.GetKeyDown(character.secondaryKey)){
             character.SwitchState(character.SecondaryState);
         }
+
+        //Reload Transtion
+        else if(Input.GetKeyDown(character.reloadKey)){
+            character.SwitchState(character.ReloadState);
+        }
     }
     public override void OnCollisionEnter(CharacterStateManager character, Collision Collision){
 

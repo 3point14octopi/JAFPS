@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterJumpState : CharacterBaseState
 {
+    private float timer; //local timer
+
     public override void EnterState(CharacterStateManager character){
         //debug
         Debug.Log("Jump TIME");
@@ -11,8 +13,8 @@ public class CharacterJumpState : CharacterBaseState
         character.rb.drag = character.airDrag;
         //resets our jump
         character.readyToJump = false;
-        //starts our jump timer
-        character.jumpCooldown = 1f;
+        //sets our local timer to the jump cooldown
+        timer = character.jumpCooldown;
         //Gives us a boost of force upward
         character.rb.AddForce(character.orientation.up * character.jumpForce, ForceMode.Impulse);
    }
@@ -33,8 +35,8 @@ public class CharacterJumpState : CharacterBaseState
         }
 
         //lowers our jumpcooldown until we get jump back
-        character.jumpCooldown -= Time.deltaTime;
-        if(character.jumpCooldown <= 1f){
+        timer -= Time.deltaTime;
+        if(timer <= 1f){
             character.readyToJump = true;
         }
 

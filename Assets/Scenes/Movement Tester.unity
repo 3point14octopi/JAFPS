@@ -161,12 +161,21 @@ MonoBehaviour:
   jumpKey: 32
   primaryKey: 323
   secondaryKey: 324
+  reloadKey: 101
   orientation: {fileID: 1640667076}
   rb: {fileID: 0}
   groundDrag: 5
   moveDirection: {x: 0, y: 0, z: 0}
   movementSpeed: 7
   speedCap: {x: 0, y: 0, z: 0}
+  primary: 10
+  primaryMax: 10
+  primaryFireRate: 1
+  primaryReload: 5
+  special: 1
+  specialMax: 1
+  specialFireRate: 0
+  specialReload: 0
   airDrag: 0
   jumpForce: 10
   airMultiplier: 0.1

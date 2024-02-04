@@ -14,16 +14,16 @@ public class CharacterStateManager : MonoBehaviour
     public CharacterLongJumpState LongJumpState = new CharacterLongJumpState();
     public CharacterPrimaryState PrimaryState = new CharacterPrimaryState();
     public CharacterSecondaryState SecondaryState = new CharacterSecondaryState();
+    public CharacterReloadState ReloadState = new CharacterReloadState();
     public CharacterRunAndGunState RunAndGunState = new CharacterRunAndGunState();
 
     [Header("Keybinds")]
     public float horizontalInput; //for W && S
     public float verticalInput; //for A && D
     public KeyCode jumpKey = KeyCode.Space; //for jump
-    public KeyCode primaryKey = KeyCode.Mouse0;
-    public KeyCode secondaryKey = KeyCode.Mouse1;
-
-
+    public KeyCode primaryKey = KeyCode.Mouse0; //for primary weapomn
+    public KeyCode secondaryKey = KeyCode.Mouse1;//for secondary gun
+    public KeyCode reloadKey = KeyCode.R;//for reloading the primary gun
    
     [Header("Running")]
     public Transform orientation; //spins with camera to know what is forward
@@ -32,6 +32,16 @@ public class CharacterStateManager : MonoBehaviour
     public Vector3 moveDirection; //movement angle
     public float movementSpeed;//run speed
     public Vector3 speedCap; //used with movement speed
+
+    [Header("Shooting")]
+    public int primary; //current primary ammo
+    public int primaryMax; //max primary ammo
+    public float primaryFireRate; //seconds between shots of primary
+    public float primaryReload; //time it takes to reload the primary
+    public int special; //current special ammo
+    public int specialMax; //max special ammo
+    public float specialFireRate; //seconds between shots of special
+    public float specialReload; //time it takes to reload the primary
 
     [Header("Jumping")]
     public float airDrag;//drag strength when in air
