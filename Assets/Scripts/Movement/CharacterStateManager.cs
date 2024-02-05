@@ -9,13 +9,24 @@ public class CharacterStateManager : MonoBehaviour
 
     //Catalog of all states
     public CharacterIdleState IdleState = new CharacterIdleState();
-    public CharacterRunState RunState = new CharacterRunState();   
+    public CharacterRunState RunState = new CharacterRunState();
+
     public CharacterJumpState JumpState = new CharacterJumpState();
     public CharacterLongJumpState LongJumpState = new CharacterLongJumpState();
-    public CharacterPrimaryState PrimaryState = new CharacterPrimaryState();
+    public CharacterFallingState FallingState = new CharacterFallingState();
+
     public CharacterSecondaryState SecondaryState = new CharacterSecondaryState();
-    public CharacterReloadState ReloadState = new CharacterReloadState();
+
+    public CharacterPrimaryState PrimaryState = new CharacterPrimaryState();
     public CharacterRunAndGunState RunAndGunState = new CharacterRunAndGunState();
+    public CharacterPrimaryJumpState JumpPrimaryState = new CharacterPrimaryJumpState();
+    public CharacterFallingPrimaryState FallingPrimaryState = new CharacterFallingPrimaryState();
+
+    public CharacterReloadState ReloadState = new CharacterReloadState();
+    public CharacterRunReloadState RunReloadState = new CharacterRunReloadState(); 
+    public CharacterReloadJumpState JumpReloadState = new CharacterReloadJumpState();
+    public CharacterFallingReloadState FallingReloadState = new CharacterFallingReloadState();
+
 
     [Header("Keybinds")]
     public float horizontalInput; //for W && S
@@ -33,26 +44,31 @@ public class CharacterStateManager : MonoBehaviour
     public float movementSpeed;//run speed
     public Vector3 speedCap; //used with movement speed
 
-    [Header("Shooting")]
+    [Header("Primary")]
     public int primary; //current primary ammo
     public int primaryMax; //max primary ammo
     public float primaryFireRate; //seconds between shots of primary
+    public float primaryTimer; //timer used for firerate
     public float primaryReload; //time it takes to reload the primary
-    public int special; //current special ammo
-    public int specialMax; //max special ammo
-    public float specialFireRate; //seconds between shots of special
-    public float specialReload; //time it takes to reload the primary
+    public float primaryWalkSpeed; //how fast you can walk while shooting   
+
+    [Header("Secondary")]
+    public int secondary; //current secondary ammo
+    public int secondaryMax; //max secondary ammo
+    public float secondaryFireRate; //seconds between shots of secondary
+    public float secondaryTimer; //timer used for firerate
 
     [Header("Jumping")]
     public float airDrag;//drag strength when in air
     public float jumpForce;// jump power/height
+    public float longJumpForce;// jump power/height for long jump
+    public float primaryJumpForce;// jump power/height for long jump
+    public float reloadJumpForce;// jump power/height for long jump
+
     public float airMultiplier;//how much less speed you have in the air
     public float jumpCooldown;//minimum time between jump in seconds
+    public float jumpTimer;//used to measuer the cooldown
     public bool readyToJump;//reset after jumpCooldown
-
-    [Header("Long Jumping")]
-    public float longJumpForce;// jump power/height for long jump
-    public float longAirMultiplier;//how much less speed you have in the air on long jump
 
     [Header("Raycast")]
     public float playerHeight;//used to raycast the correct distance downward
@@ -76,15 +92,27 @@ public class CharacterStateManager : MonoBehaviour
     //Update and the collisions basically offload their work to the current state
     void Update()
     {
+        //checks WASD every function except secondary does this so may as well do it here    
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+        //checking if we are grounded because all states have a falling transition
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+
+        //Manages the timers of primary, secondary and jump
+        primaryTimer -= Time.deltaTime;
+        secondaryTimer -= Time.deltaTime;
+        jumpTimer -= Time.deltaTime;
+
+
         currentState.UpdateState(this);
     }
 
     void OnCollisionEnter(Collision Collision){
-        currentState.OnCollisionEnter(this, Collision);
+
     }
 
-        void OnCollisionExit(Collision Collision){
-        currentState.OnCollisionExit(this, Collision);
+    void OnCollisionExit(Collision Collision){
+
     }
 
     //is called when a transition condition in our current states update is met

@@ -10,10 +10,14 @@ public class CharacterIdleState : CharacterBaseState
     }
 
     public override void UpdateState(CharacterStateManager character){
+        
+        //Transition for falling 
+        if(!character.grounded){
+            character.SwitchState(character.FallingState);
+        }
+
         //Transition for running 
-        character.horizontalInput = Input.GetAxisRaw("Horizontal");
-        character.verticalInput = Input.GetAxisRaw("Vertical");
-        if(character.horizontalInput > 0f || character.verticalInput > 0f){
+        else if(character.horizontalInput != 0f || character.verticalInput != 0f){
             character.SwitchState(character.RunState);
         }
 
@@ -34,14 +38,10 @@ public class CharacterIdleState : CharacterBaseState
 
         //Reload Transtion
         else if(Input.GetKeyDown(character.reloadKey)){
-            character.SwitchState(character.ReloadState);
+            if(character.primary < character.primaryMax){
+                character.primaryTimer = character.primaryReload;
+                character.SwitchState(character.ReloadState);
+            }
         }
-    }
-    public override void OnCollisionEnter(CharacterStateManager character, Collision Collision){
-
-    }
-
-    public override void OnCollisionExit(CharacterStateManager character, Collision Collision){
-
     }
 }

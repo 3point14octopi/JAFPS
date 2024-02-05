@@ -4,32 +4,39 @@ using UnityEngine;
 
 public class CharacterReloadState : CharacterBaseState
 {
-    private float timer; //local timer
-
     public override void EnterState(CharacterStateManager character){
         //debug
         Debug.Log("RELOAD TIME");
-
-        //sets the timer to the reload time
-        timer = character.primaryReload;
     }
 
     public override void UpdateState(CharacterStateManager character){
+        
+        //Transition for falling 
+        if(!character.grounded){
+            character.SwitchState(character.FallingReloadState);
+        }
 
-        //starts counting down the reload time
-        timer -= Time.deltaTime;
+        //Transition for running reload 
+        else if(character.horizontalInput != 0f || character.verticalInput != 0f){
+            character.SwitchState(character.RunReloadState);
+        }
 
-        //reloads then sends you back to idle
-        if(timer <=0){
-            character.primary = character.primaryMax;
+        //Jump Reload Transtion
+        else if(Input.GetKey(character.jumpKey)){
+            character.SwitchState(character.JumpReloadState);       
+        }
+
+        //When reloading is done reloads then sends you back to idle
+        if(character.primaryTimer <=0){
+            Reload(character);
             character.SwitchState(character.IdleState);
         }
-    }
-    public override void OnCollisionEnter(CharacterStateManager character, Collision Collision){
 
     }
 
-    public override void OnCollisionExit(CharacterStateManager character, Collision Collision){
-
+    //Sets the magazine to max ammo 
+    public void Reload(CharacterStateManager character){      
+        Debug.Log("Reloaded"); 
+        character.primary = character.primaryMax;
     }
 }

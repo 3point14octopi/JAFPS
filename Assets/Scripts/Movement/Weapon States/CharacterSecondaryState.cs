@@ -10,17 +10,21 @@ public class CharacterSecondaryState : CharacterBaseState
     }
 
     public override void UpdateState(CharacterStateManager character){
-
-        Debug.Log("BOOM");
+        //fires our secondary
+        SecondaryFire(character);
+        
         //Idle Transition
         character.SwitchState(character.IdleState);
-
     }
-    public override void OnCollisionEnter(CharacterStateManager character, Collision Collision){
-
-    }
-
-    public override void OnCollisionExit(CharacterStateManager character, Collision Collision){
-
+    public void SecondaryFire(CharacterStateManager character){      
+        //If the timer is done you can use your secondary
+        if(character.secondaryTimer <= 0){
+            Debug.Log("BOOM"); //THIS IS WHERE SECONDARY WILL GO
+            character.secondary = character.secondary - 1;
+            character.secondaryTimer = character.secondaryFireRate;
+        }
+        else if(character.secondaryTimer > 0){
+            Debug.Log("Not charged yet");
+        }
     }
 }

@@ -2,47 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterRunState : CharacterBaseState
+public class CharacterFallingReloadState : CharacterBaseState
 {
-
-
     public override void EnterState(CharacterStateManager character){
         //debug
-        Debug.Log("RUN TIME");
-        //gives us ground friction
-        character.rb.drag = character.groundDrag;
-   }
+        Debug.Log("FALLING RELOAD TIME");
+    }
 
     public override void UpdateState(CharacterStateManager character){
-        //Transition for falling 
-        if(!character.grounded){
+        
+        //Reload Transition
+        if(character.grounded){
+            character.SwitchState(character.ReloadState);
+        }
+
+        //When reloading is done reloads then sends you back to regular falling
+        if(character.primaryTimer <=0){
+            Reload(character);
             character.SwitchState(character.FallingState);
         }
 
-        //Long Jump Transition 
-        else if(Input.GetKey(character.jumpKey)){
-            character.SwitchState(character.LongJumpState);
-        }
-
-        //Idle Transition
-        else if(character.horizontalInput == 0f && character.verticalInput == 0f){
-            character.SwitchState(character.IdleState);
-        }
-
-        //Run and Gun Transtion
-        else if(Input.GetKeyDown(character.primaryKey)){
-            character.SwitchState(character.RunAndGunState);
-        }
-
-        //Running Reload Transtion
-        else if(Input.GetKeyDown(character.reloadKey)){
-            if(character.primary < character.primaryMax){
-                character.primaryTimer = character.primaryReload;
-                character.SwitchState(character.RunReloadState);
-            }
-        }
         
         Moving(character);
+        JumpCheck(character);
+
+    }
+  
+    //Sets the magazine to max ammo 
+    public void Reload(CharacterStateManager character){      
+        Debug.Log("Reloaded"); 
+        character.primary = character.primaryMax;
     }
 
     public void Moving(CharacterStateManager character){     
@@ -57,6 +46,13 @@ public class CharacterRunState : CharacterBaseState
         if(speed.magnitude > character.movementSpeed){
             character.speedCap = speed.normalized * character.movementSpeed;
             character.rb.velocity = new Vector3(character.speedCap.x, character.rb.velocity.y, character.speedCap.z);
+        }
+    }
+
+    public void JumpCheck(CharacterStateManager character){     
+        //limits our jumps to one every .1 seconds so we cant spam forever
+        if(character.jumpCooldown <= 1f){
+            character.readyToJump = true;
         }
     }
 }
