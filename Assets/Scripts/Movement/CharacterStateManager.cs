@@ -50,7 +50,7 @@ public class CharacterStateManager : MonoBehaviour
     public float primaryFireRate; //seconds between shots of primary
     public float primaryTimer; //timer used for firerate
     public float primaryReload; //time it takes to reload the primary
-    public float primaryWalkSpeed; //how fast you can walk while shooting   
+    public float primaryWalkSpeed; //how fast you can walk while shooting
 
     [Header("Secondary")]
     public int secondary; //current secondary ammo

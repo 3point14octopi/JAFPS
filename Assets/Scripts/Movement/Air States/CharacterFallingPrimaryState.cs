@@ -54,6 +54,8 @@ public class CharacterFallingPrimaryState : CharacterBaseState
         //If you have bullets and the timer is done you shoot
         if(character.primary > 0 && character.primaryTimer <= 0){
             Debug.Log("Pew"); //THIS IS WHERE SHOOTING WILL GO
+            ProjectileManager.instance.PrimaryShoot();
+            //THAT'S WHERE SHOOTING WENT
             character.primary = character.primary - 1;
             character.primaryTimer = character.primaryFireRate;
         }
