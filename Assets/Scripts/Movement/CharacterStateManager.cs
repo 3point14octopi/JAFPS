@@ -27,6 +27,9 @@ public class CharacterStateManager : MonoBehaviour
     public CharacterReloadJumpState JumpReloadState = new CharacterReloadJumpState();
     public CharacterFallingReloadState FallingReloadState = new CharacterFallingReloadState();
 
+    [Header("Player Stats\n")]
+    public float health = 100;
+    public float maxHealth = 100;
 
     [Header("Keybinds")]
     public float horizontalInput; //for W && S
@@ -103,15 +106,22 @@ public class CharacterStateManager : MonoBehaviour
         secondaryTimer -= Time.deltaTime;
         jumpTimer -= Time.deltaTime;
 
+        if(health <=0)
+        {
+            //kill player here/swap to death state more likely make it a state for better control
+        }
 
         currentState.UpdateState(this);
     }
 
-    void OnCollisionEnter(Collision Collision){
-
+    void OnCollisionEnter(Collision other){
+        if(other.gameObject.CompareTag("Bullet"))
+        {
+           health -= other.gameObject.GetComponent<Bullet>().bulletDamage;
+        }
     }
 
-    void OnCollisionExit(Collision Collision){
+    void OnCollisionExit(Collision other){
 
     }
 
