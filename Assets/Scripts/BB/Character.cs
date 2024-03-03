@@ -10,15 +10,16 @@ namespace Character_Data
         IDLE,
         JUMP,
         PRIMARY,
+        PRIMARY_JUMP,
         SECONDARY,
         RELOAD,
+        RELOAD_JUMP,
         RUN,
         LONG_JUMP,
-        RUNNING_PRIMARY,
-        RUNNING_RELOAD,
+        RUN_AND_GUN,
+        RUN_AND_RELOAD,
         FALL,
         FALLING_PRIMARY,
-        FALLING_SECONDARY,
         FALLING_RELOAD
     }
 

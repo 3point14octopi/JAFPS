@@ -130,6 +130,16 @@ public class CharacterStateManager : MonoBehaviour
         //switches to the correct state and calls its enter function
         currentState = state;
         state.EnterState(this);
+
+        //if the character object is networked, send an update
+        if (gameObject.GetComponent<LocalStateTracker>() != null)
+        {
+            if (Character_Data.StateData.stateCodes.ContainsKey(state.ToString())){
+                gameObject.GetComponent<LocalStateTracker>().StateUpdate(state.ToString());
+            }
+        }
+
+        //TODO: FPS animations
     }
 
 }

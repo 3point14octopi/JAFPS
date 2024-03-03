@@ -34,16 +34,17 @@ namespace Character_Data
             {"CharacterIdleState", 1 } ,
             {"CharacterJumpState", 2},
             {"CharacterPrimaryState", 3},
-            {"CharacterSecondaryState", 4},
-            {"CharacterReloadState", 5},
-            {"CharacterRunState", 6},
-            {"CharacterLongJumpState", 7},
-            {"CharacterRunAndGunState", 8},
-            {"CharacterRunningReloadState", 9},
-            {"CharacterFallState", 10},
-            {"CharacterFallingPrimaryState", 11},
-            {"CharacterFallingSecondaryState", 12},
-            {"CharacterFallingReloadState", 13}
+            {"CharacterPrimaryJumpState", 4 },
+            {"CharacterSecondaryState", 5},
+            {"CharacterReloadState", 6},
+            {"CharacterReloadJumpState", 7 },
+            {"CharacterRunState", 8},
+            {"CharacterLongJumpState", 9},
+            {"CharacterRunAndGunState", 10},
+            {"CharacterRunReloadState", 11},
+            {"CharacterFallingState", 12},
+            {"CharacterFallingPrimaryState", 13},
+            {"CharacterFallingReloadState", 14}
         };
     }
 }
