@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 3177589788535007447}
   - component: {fileID: 4328212323648156092}
   - component: {fileID: 5472204320903064175}
+  - component: {fileID: 4492739123118065606}
   m_Layer: 0
   m_Name: Dynamic_Billboard_Object
   m_TagString: Untagged
@@ -171,8 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnimator: {fileID: 5681612481009890798}
   actionState: 1
-  characterTransform: {fileID: 441396524773898052}
-  characterRigidbody: {fileID: 3177589788535007447}
+  visualizer: 0
 --- !u!114 &5472204320903064175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,3 +197,21 @@ MonoBehaviour:
   prevPerspective: 0
   bbEnabled: 1
   isBillboarding: 1
+--- !u!114 &4492739123118065606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809755619229719548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb7acfd489e6fd42aefb68cbce305ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tform: {fileID: 441396524773898052}
+  body: {fileID: 3177589788535007447}
+  posV: {x: 0, y: 0, z: 0}
+  eulersV: {x: 0, y: 0, z: 0}
+  velV: {x: 0, y: 0, z: 0}
+  timesum: 0
